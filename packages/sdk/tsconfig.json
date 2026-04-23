@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": { "outDir": "./dist", "rootDir": "./src" },
+  "references": [{ "path": "../core" }, { "path": "../evaluator" }],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
