@@ -1,0 +1,10 @@
+{
+  "name": "@xpaymind/cli",
+  "version": "0.1.0",
+  "description": "CLI for xPaymind — benchmark your AI agent for x402 compliance",
+  "bin": { "xpaymind": "./dist/cli.js" },
+  "main": "./dist/index.js",
+  "scripts": { "build": "tsc --build", "typecheck": "tsc --noEmit", "clean": "rm -rf dist .turbo" },
+  "dependencies": { "@xpaymind/core": "workspace:*", "@xpaymind/sdk": "workspace:*", "commander": "^12.1.0", "chalk": "^5.3.0", "ora": "^8.1.0", "table": "^6.8.0", "dotenv": "^16.4.0" },
+  "devDependencies": { "@types/node": "^22.0.0", "typescript": "^5.7.0" }
+}
