@@ -73,3 +73,16 @@ BenchmarkSuite.COMPLIANCE_ONLY  // 'compliance-only'
 BenchmarkSuite.LATENCY_STRESS   // 'latency-stress'
 BenchmarkSuite.ADVERSARIAL      // 'adversarial'
 ```
+
+---
+
+## Trend Analysis
+
+```typescript
+import { computeTrend } from '@xpaymind/evaluator';
+
+const trend = computeTrend([reportV1, reportV2, reportV3]);
+// { direction: 'improving', deltaScore: +6.4, snapshots: [...] }
+```
+
+Use this to track your agent's progress over time and surface regressions early.
