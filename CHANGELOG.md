@@ -22,3 +22,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Initial repository setup
 - Monorepo configuration (pnpm, Turborepo, TypeScript)
 - MIT license
+
+## [0.2.0] — 2026-05-13
+
+### Added
+- `computeTrend()` in `@xpaymind/evaluator` for historical score trend analysis
+- `BenchmarkStream` SSE client in `@xpaymind/sdk` for real-time progress updates
+- Server-Sent Events endpoint (`/v1/benchmarks/stream/:jobId`) in API server
+- Adversarial benchmark suite (`adv-001` through `adv-004`)
+- Cost efficiency metrics module
+- Leaderboard builder with best-score deduplication
+- Unit tests for `X402Validator`, `BenchmarkRunner`, and standard suite
+
+### Fixed
+- Exponential backoff retry logic added to `BenchmarkRunner`
+- CI workflow now triggers only on pull requests and manual dispatch
