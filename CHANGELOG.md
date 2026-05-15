@@ -37,3 +37,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 - Exponential backoff retry logic added to `BenchmarkRunner`
 - CI workflow now triggers only on pull requests and manual dispatch
+
+## [0.2.1] — 2026-05-15
+
+### Fixed
+
+- **core**: `ConcurrentNonceGuard` — agents running multiple x402 payments in
+  parallel could generate duplicate nonces, causing one or more payments to be
+  rejected by the recipient server. The new guard uses a per-`recipient:network`
+  in-flight set with crypto-random nonce generation and retry logic.
+
+### Added
+
+- **evaluator**: `GlobalPercentileTracker` — computes the percentile rank of a
+  new benchmark score relative to all historical scores in O(log n) time via
+  binary-search insertion into a sorted array. Seeding from an existing dataset
+  is supported for server-startup hydration.
+
+### Internal
+
+- Both modules are exported from their respective package barrels.
+- No public API changes; no breaking changes.
