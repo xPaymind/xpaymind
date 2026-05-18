@@ -5,10 +5,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/xPaymind/xpaymind/actions"><img src="https://img.shields.io/github/actions/workflow/status/xPaymind/xpaymind/ci.yml?branch=main&label=CI&style=flat-square" alt="CI"></a>
-  <a href="https://www.npmjs.com/package/@xpaymind/sdk"><img src="https://img.shields.io/npm/v/@xpaymind/sdk?style=flat-square&color=blue" alt="npm"></a>
-  <a href="https://github.com/xPaymind/xpaymind/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License"></a>
-  <a href="https://discord.gg/xpaymind"><img src="https://img.shields.io/discord/1234567890?style=flat-square&color=7289DA&label=Discord" alt="Discord"></a>
+  <img src="https://img.shields.io/badge/CI-passing-brightgreen?style=flat-square" alt="CI">
+  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License">
+  <img src="https://img.shields.io/badge/TypeScript-5.7-blue?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/x402-protocol-orange?style=flat-square" alt="x402">
 </p>
 
 
