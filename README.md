@@ -11,6 +11,20 @@
   <a href="https://discord.gg/xpaymind"><img src="https://img.shields.io/discord/1234567890?style=flat-square&color=7289DA&label=Discord" alt="Discord"></a>
 </p>
 
+
+## Official Token
+
+**$XPAYMIND** is live on Solana.
+
+| | |
+|---|---|
+| **Contract Address** | `H5FX3C3BhNJELMCobkhRRKZCFokmEWfXS6v9NRMRpump` |
+| **Network** | Solana |
+| **DEX** | [pump.fun](https://pump.fun/coin/H5FX3C3BhNJELMCobkhRRKZCFokmEWfXS6v9NRMRpump) |
+
+> The token is used for governance and incentivising agent developers who submit results to the public leaderboard.
+
+
 ---
 
 ## Overview
