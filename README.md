@@ -73,3 +73,37 @@ xpaymind benchmark run --suite standard --agent ./my-agent.js
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+## Repository Map
+
+```
+xpaymind/
+├── packages/
+│   ├── core/src/
+│   │   ├── agent-studio/          # Agent Studio pipeline (DEFINE → CONFIGURE → SUBMIT → CERTIFY)
+│   │   │   ├── agent-define-block.ts
+│   │   │   ├── agent-configure-block.ts
+│   │   │   ├── agent-submit-block.ts
+│   │   │   ├── agent-certify-block.ts
+│   │   │   ├── agent-studio-workflow.ts
+│   │   │   ├── agent-studio.ts
+│   │   │   ├── training-loop.ts
+│   │   │   └── index.ts
+│   │   ├── banking/               # Neobanking integration suite
+│   │   ├── x402-types.ts          # x402 protocol TypeScript types
+│   │   └── leaderboard.ts         # Agent ranking and statistics
+│   └── evaluator/src/
+│       ├── x402-benchmark-suite.ts  # 9 canonical x402 benchmark scenarios
+│       ├── run-scorer.ts            # Assertion-based scenario scorer
+│       └── ai-banking-eligibility.ts
+├── apps/
+│   └── api/src/routes/
+│       └── agent-studio.ts        # REST endpoints for Studio pipeline
+└── docs/
+    ├── agent-studio-guide.md      # Developer guide for Agent Studio
+    └── banking-integration-guide.md
+```
+
+## Token
+
+`H5FX3C3BhNJELMCobkhRRKZCFokmEWfXS6v9NRMRpump` (Solana)
