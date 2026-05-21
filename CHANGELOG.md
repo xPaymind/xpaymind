@@ -1,60 +1,47 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to the Agent Studio are documented here.
+Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+---
 
-## [Unreleased]
+## [1.1.0] — 2026-05-21
 
-### Added
-- Standard benchmark suite with 11 scenarios across 5 categories
-- `@xpaymind/core` — benchmark runner and x402 harness
-- `@xpaymind/evaluator` — scoring engine with grade and percentile
-- `@xpaymind/sdk` — TypeScript SDK for API integration
-- `@xpaymind/cli` — CLI with `init`, `benchmark run`, `leaderboard`, `results`
-- REST API server (`apps/api`) with Express 5
-- WebSocket support for live benchmark updates
-- GitHub Actions CI, release, and security workflows
+### Agent Studio — SUBMIT Block
 
-## [0.1.0] — 2026-04-14
+#### Added
+- `SubmitOptions.dryRun` — validate the full pre-flight pipeline without
+  enqueuing the agent; useful for CI checks before production submission.
+- `SubmitOptions.priority` (`"low" | "normal" | "high"`) — controls queue
+  position; high-priority agents skip ahead of the normal queue.
+- `submitAgentDryRun()` convenience wrapper around `submitAgent({ dryRun: true })`.
+- `SubmissionReceipt.queuePosition` — approximate position in the live
+  benchmark queue returned with every submission.
+- `SubmissionReceipt.schemaVersion` — semver string for forward-compatibility
+  with future receipt consumers.
+- Pre-flight now includes **tool-coverage check**: verifies that tools required
+  by each selected scenario (e.g. `kyc-verifier` for `x402-kyc-gate`) are
+  bound in the agent configuration before submission.
 
-### Added
-- Initial repository setup
-- Monorepo configuration (pnpm, Turborepo, TypeScript)
-- MIT license
+#### Changed
+- `runPreflightChecks()` signature extended to accept `scenarioIds[]` so
+  tool-coverage is scenario-aware.
+- `SUBMIT_SCHEMA_VERSION` exported constant (`"1.1.0"`) for consumers that
+  need to detect receipt format changes.
 
-## [0.2.0] — 2026-05-13
+#### Fixed
+- Queue position was previously unset (`undefined`) in the receipt object;
+  it now always carries a numeric value.
 
-### Added
-- `computeTrend()` in `@xpaymind/evaluator` for historical score trend analysis
-- `BenchmarkStream` SSE client in `@xpaymind/sdk` for real-time progress updates
-- Server-Sent Events endpoint (`/v1/benchmarks/stream/:jobId`) in API server
-- Adversarial benchmark suite (`adv-001` through `adv-004`)
-- Cost efficiency metrics module
-- Leaderboard builder with best-score deduplication
-- Unit tests for `X402Validator`, `BenchmarkRunner`, and standard suite
+---
 
-### Fixed
-- Exponential backoff retry logic added to `BenchmarkRunner`
-- CI workflow now triggers only on pull requests and manual dispatch
+## [1.0.0] — 2026-05-20
 
-## [0.2.1] — 2026-05-15
+### Agent Studio — initial release
 
-### Fixed
-
-- **core**: `ConcurrentNonceGuard` — agents running multiple x402 payments in
-  parallel could generate duplicate nonces, causing one or more payments to be
-  rejected by the recipient server. The new guard uses a per-`recipient:network`
-  in-flight set with crypto-random nonce generation and retry logic.
-
-### Added
-
-- **evaluator**: `GlobalPercentileTracker` — computes the percentile rank of a
-  new benchmark score relative to all historical scores in O(log n) time via
-  binary-search insertion into a sorted array. Seeding from an existing dataset
-  is supported for server-startup hydration.
-
-### Internal
-
-- Both modules are exported from their respective package barrels.
-- No public API changes; no breaking changes.
+- DEFINE block: `defineAgent()`, `AgentType`, `DEFINE_FIELD_SCHEMAS`
+- CONFIGURE block: `configureAgent()`, `validateConfiguration()`
+- SUBMIT block: `submitAgent()`, `runPreflightChecks()`
+- CERTIFY block: `certifyAgent()`, tier scoring (Bronze → Platinum), `formatCertificationSummary()`
+- Barrel export: `packages/core/src/agent-studio/index.ts`
+- REST API: `/api/agent-studio/{define,configure,submit,certify}`
