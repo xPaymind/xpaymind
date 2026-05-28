@@ -1,47 +1,37 @@
-# Changelog
+## [2.0.0] — 2026-05-28
 
-All notable changes to the Agent Studio are documented here.
-Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+### Agent Studio v2 — Major Release
 
----
+#### New
+- **PipelineOrchestrator** (`packages/core/src/agent-studio/pipeline-orchestrator.ts`)
+  — DAG-based pipeline execution replacing v1 linear runner; parallel stage
+  execution, conditional skip on upstream failure, per-stage timeout & retry
+- **AgentHealthMonitor** (`packages/core/src/agent-health-monitor.ts`)
+  — real-time liveness, success rate (1 m / 5 m windows), EMA latency drift,
+  circuit-breaker state, budget utilisation; Markdown table output
+- **BenchmarkReportGenerator** (`packages/evaluator/src/benchmark-report-generator.ts`)
+  — JSON / Markdown / ANSI reports with p50/p95/p99, failure analysis, regression delta
+- **AgentScoreboard** (`packages/core/src/agent-studio/agent-scoreboard.ts`)
+  — Elo-style ranking with time-decay, domain scores (8 domains), badge system
+- **PaymentNormalizer** (`packages/core/src/payment-normalizer.ts`)
+  — bigint micro-unit arithmetic, 19 currencies, FX cache, dust filter, cap validation
+- **X402CircuitBreaker** (`packages/core/src/x402-circuit-breaker.ts`)
+  — CLOSED / OPEN / HALF_OPEN state machine, per-endpoint metrics
+- **X402RateLimiter** (`packages/core/src/x402-rate-limiter.ts`)
+  — token-bucket per agent/currency, burst, queue with maxWaitMs
+- **X402AuditLogger** (`packages/core/src/x402-audit-logger.ts`)
+  — append-only FNV-1a chained audit trail, chain verification
 
-## [1.1.0] — 2026-05-21
+#### Breaking changes vs v1
+- `AgentSubmitBlock.run()` now returns `PipelineResult` instead of raw boolean
+- `BenchmarkSuite` score range changed from 0–10 to 0–100 (multiply existing
+  baselines by 10)
+- `AgentConfigureBlock` requires explicit `currency: SupportedCurrency` field
 
-### Agent Studio — SUBMIT Block
+#### Infrastructure
+- All new modules export from `packages/core/src/index.ts` barrel
+- `packages/evaluator` gains `BenchmarkReportGenerator` export
 
-#### Added
-- `SubmitOptions.dryRun` — validate the full pre-flight pipeline without
-  enqueuing the agent; useful for CI checks before production submission.
-- `SubmitOptions.priority` (`"low" | "normal" | "high"`) — controls queue
-  position; high-priority agents skip ahead of the normal queue.
-- `submitAgentDryRun()` convenience wrapper around `submitAgent({ dryRun: true })`.
-- `SubmissionReceipt.queuePosition` — approximate position in the live
-  benchmark queue returned with every submission.
-- `SubmissionReceipt.schemaVersion` — semver string for forward-compatibility
-  with future receipt consumers.
-- Pre-flight now includes **tool-coverage check**: verifies that tools required
-  by each selected scenario (e.g. `kyc-verifier` for `x402-kyc-gate`) are
-  bound in the agent configuration before submission.
+## [1.1.0] — 2026-05-14
 
-#### Changed
-- `runPreflightChecks()` signature extended to accept `scenarioIds[]` so
-  tool-coverage is scenario-aware.
-- `SUBMIT_SCHEMA_VERSION` exported constant (`"1.1.0"`) for consumers that
-  need to detect receipt format changes.
-
-#### Fixed
-- Queue position was previously unset (`undefined`) in the receipt object;
-  it now always carries a numeric value.
-
----
-
-## [1.0.0] — 2026-05-20
-
-### Agent Studio — initial release
-
-- DEFINE block: `defineAgent()`, `AgentType`, `DEFINE_FIELD_SCHEMAS`
-- CONFIGURE block: `configureAgent()`, `validateConfiguration()`
-- SUBMIT block: `submitAgent()`, `runPreflightChecks()`
-- CERTIFY block: `certifyAgent()`, tier scoring (Bronze → Platinum), `formatCertificationSummary()`
-- Barrel export: `packages/core/src/agent-studio/index.ts`
-- REST API: `/api/agent-studio/{define,configure,submit,certify}`
+_See git history for prior entries._
